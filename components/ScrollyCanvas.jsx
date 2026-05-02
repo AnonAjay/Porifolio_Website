@@ -36,7 +36,7 @@ export default function ScrollyCanvas({ scrollYProgress }) {
     const handleResize = () => {
       drawCanvas(Math.round(frameIndex.get()));
     };
-    
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -44,10 +44,10 @@ export default function ScrollyCanvas({ scrollYProgress }) {
   const drawCanvas = (index) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const context = canvas.getContext("2d");
     if (!context) return;
-    
+
     const image = imagesRef.current[index];
     if (!image || !image.complete) return;
 
@@ -55,7 +55,7 @@ export default function ScrollyCanvas({ scrollYProgress }) {
     const { innerWidth: width, innerHeight: height } = window;
     // Handle High DPI displays
     const dpr = window.devicePixelRatio || 1;
-    
+
     if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -67,7 +67,7 @@ export default function ScrollyCanvas({ scrollYProgress }) {
     // Object-fit: cover logic
     const imgRatio = image.width / image.height;
     const canvasRatio = width / height;
-    
+
     let drawWidth, drawHeight, offsetX, offsetY;
 
     if (canvasRatio > imgRatio) {
@@ -95,8 +95,8 @@ export default function ScrollyCanvas({ scrollYProgress }) {
   });
 
   return (
-    <div 
-      className="absolute inset-0 w-full h-full pointer-events-none z-0"
+    <div
+      className="absolute inset-0 w-full min-h-screen pointer-events-none z-0"
       style={{
         background: `
           radial-gradient(circle at 70% 30%, rgba(255,111,97,0.25), transparent 60%),
@@ -104,12 +104,12 @@ export default function ScrollyCanvas({ scrollYProgress }) {
         `
       }}
     >
-      <div 
-        className="w-full h-full transform translate-x-[5%]"
+      <div
+        className="relative flex justify-center items-center w-full h-full"
       >
         <canvas
           ref={canvasRef}
-          className="w-full h-full object-cover"
+          className="w-full h-[100vh] object-cover object-center"
           style={{
             filter: "contrast(1.05) saturate(1.05)"
           }}
@@ -117,7 +117,7 @@ export default function ScrollyCanvas({ scrollYProgress }) {
       </div>
 
       {/* Soft overlay in front of image + optional rim glow */}
-      <div 
+      <div
         className="absolute inset-0 z-10"
         style={{
           background: "linear-gradient(to right, rgba(0,0,0,0.3), transparent)",

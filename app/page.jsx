@@ -22,8 +22,8 @@ export default function Home() {
         The Scrollytelling Section
         Height is 500vh to give a long scrolling duration for the 144 frames
       */}
-      <section className="relative h-[500vh]">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <section className="relative w-full h-[500vh]">
+        <div className="sticky top-0 h-screen w-full">
           <ScrollyCanvas scrollYProgress={scrollYProgress} />
           <Overlay scrollYProgress={scrollYProgress} />
         </div>
