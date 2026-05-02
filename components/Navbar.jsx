@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-      <div className="bg-white/75 backdrop-blur-md border border-white/40 rounded-full shadow-lg px-12 py-4 flex items-center gap-8">
+      <div className="bg-white/10 backdrop-blur-md border border-white/40 rounded-full shadow-lg px-10 py-4 flex items-center gap-12">
         {links.map((link) => (
           <Link
             key={link.name}

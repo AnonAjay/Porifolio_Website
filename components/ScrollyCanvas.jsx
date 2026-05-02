@@ -11,7 +11,11 @@ const currentFrame = (index) =>
 export default function ScrollyCanvas({ scrollYProgress }) {
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
+  const frameIndex = useTransform(
+  scrollYProgress,
+  [0, 0.85], // 👈 animation only happens here
+  [0, FRAME_COUNT - 1]
+);
 
   useEffect(() => {
     // Preload images
@@ -69,18 +73,19 @@ export default function ScrollyCanvas({ scrollYProgress }) {
     const canvasRatio = width / height;
 
     let drawWidth, drawHeight, offsetX, offsetY;
+    const verticalOffset = 65; // 🔥 adjust this manually (try 50 → 120)
 
     if (canvasRatio > imgRatio) {
       // Canvas is wider than image
       drawWidth = width;
       drawHeight = width / imgRatio;
       offsetX = 0;
-      offsetY = (height - drawHeight) / 2;
+      offsetY = (height - drawHeight) / 2 + verticalOffset;
     } else {
       // Canvas is taller than image
       drawHeight = height;
       drawWidth = height * imgRatio;
-      offsetY = 0;
+      offsetY = verticalOffset;
       offsetX = (width - drawWidth) / 2;
     }
 
@@ -90,9 +95,9 @@ export default function ScrollyCanvas({ scrollYProgress }) {
   };
 
   useMotionValueEvent(frameIndex, "change", (latest) => {
-    const frame = Math.round(latest);
-    requestAnimationFrame(() => drawCanvas(frame));
-  });
+  const frame = Math.min(FRAME_COUNT - 1, Math.round(latest)); // 👈 safety clamp
+  requestAnimationFrame(() => drawCanvas(frame));
+});
 
   return (
     <div
