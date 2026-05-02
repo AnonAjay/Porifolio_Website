@@ -57,7 +57,7 @@ export default function Overlay({ scrollYProgress }) {
         {/* ================= SECTION 1 (CENTER HERO) ================= */}
         <motion.div
           style={{ opacity: opacity1, y: y1 }}
-          className="absolute top-[80%] left-[30%] -translate-x-1/2 -translate-y-1/2 text-center px-6"
+          className="absolute top-[78%] left-[31%] -translate-x-1/2 -translate-y-1/2 text-center px-6"
         >
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">
             Ajay Preet Singh
