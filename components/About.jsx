@@ -146,7 +146,7 @@ export default function About() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] mb-12 leading-[1.2]"
           >
             I build <br />
-            <span className="relative block h-[1.2em] overflow-hidden">
+            <span className="relative block min-h-[1.4em] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={PHRASES[phraseIndex]}

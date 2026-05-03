@@ -647,6 +647,12 @@ video {
 .min-h-screen {
   min-height: 100vh;
 }
+.min-h-\[1\.4em\] {
+  min-height: 1.4em;
+}
+.min-h-\[180px\] {
+  min-height: 180px;
+}
 .w-0 {
   width: 0px;
 }
@@ -664,6 +670,9 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-\[55\%\] {
+  width: 55%;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -686,6 +695,11 @@ video {
 .scale-\[0\.85\] {
   --tw-scale-x: 0.85;
   --tw-scale-y: 0.85;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-\[0\.9\] {
+  --tw-scale-x: 0.9;
+  --tw-scale-y: 0.9;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .transform {
@@ -726,6 +740,9 @@ video {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-6 {
+  gap: 1.5rem;
 }
 .overflow-hidden {
   overflow: hidden;
@@ -846,6 +863,9 @@ video {
 .p-6 {
   padding: 1.5rem;
 }
+.p-8 {
+  padding: 2rem;
+}
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -930,6 +950,9 @@ video {
 .leading-tight {
   line-height: 1.25;
 }
+.leading-\[1\.1\] {
+  line-height: 1.1;
+}
 .tracking-tight {
   letter-spacing: -0.025em;
 }
@@ -990,6 +1013,10 @@ video {
 }
 .blur-\[100px\] {
   --tw-blur: blur(100px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.blur {
+  --tw-blur: blur(8px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-2xl {
