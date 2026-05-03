@@ -26,7 +26,7 @@ export default function Projects() {
   ];
 
   return (
-    <section className="relative min-h-screen bg-[#121212] text-white py-32 px-6 md:px-12 z-20">
+    <section id="projects" className="relative min-h-screen bg-[#121212] text-white py-32 px-6 md:px-12 z-20">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-16 border-b border-white/10 pb-8">
           Selected Works
