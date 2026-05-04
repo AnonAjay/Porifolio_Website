@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ScrollyCanvas from "../components/ScrollyCanvas";
 import Overlay from "../components/Overlay";
 import About from "../components/About";
+import TechStack from "../components/TechStack";
 import Projects from "../components/Projects";
 
 export default function Home() {
@@ -41,6 +42,12 @@ export default function Home() {
         Flows naturally after the introduction
       */}
       <Projects />
+
+      {/* 
+        The Tech Stack Section
+        Visualizing technical depth across various categories.
+      */}
+      <TechStack />
     </main>
   );
 }
