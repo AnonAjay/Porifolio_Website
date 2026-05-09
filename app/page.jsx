@@ -2,52 +2,28 @@
 
 import { useScroll } from "framer-motion";
 import { useEffect } from "react";
-import ScrollyCanvas from "../components/ScrollyCanvas";
-import Overlay from "../components/Overlay";
-import About from "../components/About";
-import TechStack from "../components/TechStack";
-import Projects from "../components/Projects";
+import HeroSection from "../components/sections/HeroSection";
+import AboutSection from "../components/sections/AboutSection";
+import ProjectsSection from "../components/sections/ProjectsSection";
+import TechStackSection from "../components/sections/TechStackSection";
+import ExperienceSection from "../components/sections/ExperienceSection";
+import ContactSection from "../components/sections/ContactSection";
 
 export default function Home() {
-  // Global scroll progress
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    // Smooth scroll enabled natively via CSS or just letting browser handle it,
-    // but we can ensure window is at top on reload
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <main className="relative bg-[#121212]">
-      {/* 
-        The Scrollytelling Section
-        Height is 900vh to give a long scrolling duration for the 144 frames
-      */}
-      <section id="home" className="relative w-full h-[900vh]">
-        <div className="sticky top-0 h-screen w-full">
-          <ScrollyCanvas scrollYProgress={scrollYProgress} />
-          <Overlay scrollYProgress={scrollYProgress} />
-        </div>
-      </section>
-
-      {/* 
-        The About Section
-        A light-themed, interactive overview of identity and capabilities.
-      */}
-      <About />
-
-      {/* 
-        The Projects Section
-        Flows naturally after the introduction
-      */}
-      <Projects />
-
-      {/* 
-        The Tech Stack Section
-        Visualizing technical depth across various categories.
-      */}
-      <TechStack />
+      <HeroSection scrollYProgress={scrollYProgress} />
+      <AboutSection />
+      <ProjectsSection />
+      <TechStackSection />
+      <ExperienceSection />
+      <ContactSection />
     </main>
   );
 }
