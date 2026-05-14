@@ -1,12 +1,8 @@
 "use client";
 
-import { motion, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
-export default function Overlay({ scrollYProgress }) {
-
-
-  // MOVEMENT CONTROL (vertical animation)
-  const moveRange = 100; // increase/decrease for stronger motion
+export default function Overlay({ activeStep }) {
 
   // TEXT COLORS (change freely)
   const primaryColor = "#ffffff";          // white works best over visuals
@@ -15,34 +11,16 @@ export default function Overlay({ scrollYProgress }) {
 
   /*
   ============================================
-  🎬 ANIMATION LOGIC (DON'T TOUCH UNLESS NEEDED)
+  🎬 ANIMATION LOGIC (STATE-BASED CINEMATIC PHYSICS)
   ============================================
   */
 
-  // SECTION 1
-  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.25], [0, -80]);
-
-  // SECTION 2
-  const opacity2 = useTransform(scrollYProgress, [0.25, 0.35, 0.45, 0.5], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.25, 0.5], [80, -80]);
-
-  // SECTION 3
-  const opacity3 = useTransform(scrollYProgress, [0.5, 0.6, 0.7, 0.75], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.5, 0.75], [80, -80]);
-
-  // SECTION 4 (LONGER HOLD)
-  const opacity4 = useTransform(scrollYProgress, [0.75, 0.85, 1], [0, 1, 1]);
-  const y4 = useTransform(scrollYProgress, [0.75, 1], [80, 0]);
-
-  /*
-  ============================================
-  🧠 DEBUG TOOL (OPTIONAL)
-  ============================================
-  */
-
-  // Uncomment to log scroll position
-  scrollYProgress.on("change", (v) => console.log("Scroll:", v));
+  const springTransition = {
+    type: "spring",
+    stiffness: 35, // heavier cinematic feel
+    damping: 20,   // micro-settling without bouncing
+    restDelta: 0.001
+  };
 
   /*
   ============================================
@@ -56,7 +34,14 @@ export default function Overlay({ scrollYProgress }) {
 
         {/* ================= SECTION 1 (CENTER HERO) ================= */}
         <motion.div
-          style={{ opacity: opacity1, y: y1 }}
+          initial={false}
+          animate={{
+            opacity: activeStep === 0 ? 1 : 0,
+            y: activeStep === 0 ? 0 : -80,
+            scale: activeStep === 0 ? 1 : 0.985,
+            filter: activeStep === 0 ? "blur(0px)" : "blur(4px)"
+          }}
+          transition={springTransition}
           className="absolute top-[78%] left-[31%] -translate-x-1/2 -translate-y-1/2 text-center px-6"
         >
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">
@@ -74,8 +59,15 @@ export default function Overlay({ scrollYProgress }) {
 
         {/* ================= SECTION 2 (LEFT CONTROLLED) ================= */}
         <motion.div
-          style={{ opacity: opacity2, y: y2 }}
-          className="absolute top-[50%] left-[6%] -translate-y-1/2"
+          initial={false}
+          animate={{
+            opacity: activeStep === 1 ? 1 : 0,
+            y: activeStep === 1 ? 0 : (activeStep < 1 ? 80 : -80),
+            scale: activeStep === 1 ? 1 : 0.985,
+            filter: activeStep === 1 ? "blur(0px)" : "blur(4px)"
+          }}
+          transition={springTransition}
+          className="absolute top-[43%] left-[6%] -translate-y-1/2"
         >
           <div className="max-w-xl text-left">
             <h2 className="text-4xl md:text-6xl font-semibold leading-tight text-white drop-shadow-2xl">
@@ -89,8 +81,15 @@ export default function Overlay({ scrollYProgress }) {
 
         {/* ================= SECTION 3 (RIGHT CONTROLLED) ================= */}
         <motion.div
-          style={{ opacity: opacity3, y: y3 }}
-          className="absolute top-[30%] right-[8%] -translate-y-1/2"
+          initial={false}
+          animate={{
+            opacity: activeStep === 2 ? 1 : 0,
+            y: activeStep === 2 ? 0 : (activeStep < 2 ? 80 : -80),
+            scale: activeStep === 2 ? 1 : 0.985,
+            filter: activeStep === 2 ? "blur(0px)" : "blur(4px)"
+          }}
+          transition={springTransition}
+          className="absolute top-[27%] right-[6%] -translate-y-1/2"
         >
           <div className="max-w-xl text-right">
             <h2 className="text-4xl md:text-6xl font-semibold leading-tight text-white drop-shadow-2xl">
@@ -105,7 +104,14 @@ export default function Overlay({ scrollYProgress }) {
 
         {/* ================= SECTION 4 (BOTTOM RIGHT FINAL) ================= */}
         <motion.div
-          style={{ opacity: opacity4, y: y4 }}
+          initial={false}
+          animate={{
+            opacity: activeStep === 3 ? 1 : 0,
+            y: activeStep === 3 ? 0 : 80,
+            scale: activeStep === 3 ? 1 : 0.985,
+            filter: activeStep === 3 ? "blur(0px)" : "blur(4px)"
+          }}
+          transition={springTransition}
           className="absolute bottom-[12%] right-[8%]"
         >
           <div className="max-w-xl text-right">

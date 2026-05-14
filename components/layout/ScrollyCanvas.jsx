@@ -1,21 +1,32 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useMotionValueEvent, useSpring, useMotionValue } from "framer-motion";
 
 const FRAME_COUNT = 144;
 
 const currentFrame = (index) =>
   `/images/Light-Mode-Intro/frame_${index.toString().padStart(3, "0")}_delay-0.055s.png`;
 
-export default function ScrollyCanvas({ scrollYProgress }) {
+export default function ScrollyCanvas({ activeStep }) {
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
-  const frameIndex = useTransform(
-  scrollYProgress,
-  [0, 0.85], // 👈 animation only happens here
-  [0, FRAME_COUNT - 1]
-);
+
+  // Cinematic keyframes mapping to activeStep
+  const keyframes = [0, 48 , 96, 143];
+  const targetFrame = useMotionValue(keyframes[0]);
+
+  // Cinematic grounded spring physics
+  const smoothFrame = useSpring(targetFrame, {
+    stiffness: 35, // heavier cinematic feel
+    damping: 20,   // micro-settling without bouncing
+    restDelta: 0.001
+  });
+
+  // Update the target frame whenever the step changes
+  useEffect(() => {
+    targetFrame.set(keyframes[activeStep] || 0);
+  }, [activeStep, targetFrame]);
 
   useEffect(() => {
     // Preload images
@@ -38,7 +49,7 @@ export default function ScrollyCanvas({ scrollYProgress }) {
 
     // Handle window resize to redraw canvas at correct scale
     const handleResize = () => {
-      drawCanvas(Math.round(frameIndex.get()));
+      drawCanvas(Math.round(smoothFrame.get()));
     };
 
     window.addEventListener("resize", handleResize);
@@ -94,8 +105,8 @@ export default function ScrollyCanvas({ scrollYProgress }) {
     context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
   };
 
-  useMotionValueEvent(frameIndex, "change", (latest) => {
-  const frame = Math.min(FRAME_COUNT - 1, Math.round(latest)); // 👈 safety clamp
+  useMotionValueEvent(smoothFrame, "change", (latest) => {
+  const frame = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(latest))); // 👈 safety clamp
   requestAnimationFrame(() => drawCanvas(frame));
 });
 
