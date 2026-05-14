@@ -42,7 +42,7 @@ export default function Overlay({ scrollYProgress }) {
   */
 
   // Uncomment to log scroll position
-  // scrollYProgress.on("change", (v) => console.log("Scroll:", v));
+  scrollYProgress.on("change", (v) => console.log("Scroll:", v));
 
   /*
   ============================================
