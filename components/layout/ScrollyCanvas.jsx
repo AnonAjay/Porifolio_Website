@@ -11,6 +11,7 @@ const currentFrame = (index) =>
 export default function ScrollyCanvas({ activeStep }) {
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
+  const previousFrameRef = useRef(-1);
 
   // Cinematic keyframes mapping to activeStep
   const keyframes = [0, 48 , 96, 143];
@@ -18,9 +19,11 @@ export default function ScrollyCanvas({ activeStep }) {
 
   // Cinematic grounded spring physics
   const smoothFrame = useSpring(targetFrame, {
-    stiffness: 35, // heavier cinematic feel
-    damping: 20,   // micro-settling without bouncing
-    restDelta: 0.001
+    stiffness: 26,
+    damping: 18,
+    mass: 0.9,
+    restSpeed: 0.01,
+    restDelta: 0.0001
   });
 
   // Update the target frame whenever the step changes
@@ -106,9 +109,24 @@ export default function ScrollyCanvas({ activeStep }) {
   };
 
   useMotionValueEvent(smoothFrame, "change", (latest) => {
-  const frame = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(latest))); // 👈 safety clamp
-  requestAnimationFrame(() => drawCanvas(frame));
-});
+    const targetFrameValue = targetFrame.get();
+
+    // Soft deterministic completion
+    if (Math.abs(latest - targetFrameValue) < 0.2) {
+      if (previousFrameRef.current !== targetFrameValue) {
+        previousFrameRef.current = targetFrameValue;
+        requestAnimationFrame(() => drawCanvas(targetFrameValue));
+      }
+      return;
+    }
+
+    // Normal interpolation
+    const frame = Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(latest))); // 👈 safety clamp
+    if (frame !== previousFrameRef.current) {
+      previousFrameRef.current = frame;
+      requestAnimationFrame(() => drawCanvas(frame));
+    }
+  });
 
   return (
     <div

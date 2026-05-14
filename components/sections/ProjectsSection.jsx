@@ -7,6 +7,7 @@ import { ROADMAP_DATA } from "../../data/projects";
 import ProjectCard from "../cards/ProjectCard";
 import SectionHeader from "../common/SectionHeader";
 import GridBackground from "../common/GridBackground";
+import SectionWrapper from "../layout/SectionWrapper";
 
 export default function ProjectsSection() {
   const [activeYearIndex, setActiveYearIndex] = useState(0);
@@ -30,7 +31,7 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="relative min-h-screen py-24 px-8 md:px-20 bg-[#FDF8F5] overflow-hidden flex flex-col justify-center">
+    <SectionWrapper id="projects" className="bg-[#FDF8F5]">
       <GridBackground type="radial" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#FF6F61]/5 blur-[150px] rounded-full pointer-events-none" />
 
@@ -105,6 +106,6 @@ export default function ProjectsSection() {
           </div>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { PHRASES, CAPABILITIES, ABOUT_TEXT } from "../../data/about";
 import CapabilityCard from "../cards/CapabilityCard";
 import GridBackground from "../common/GridBackground";
+import SectionWrapper from "../layout/SectionWrapper";
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
@@ -19,10 +20,10 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section 
+    <SectionWrapper 
       id="about" 
       ref={sectionRef} 
-      className="relative min-h-screen flex items-center px-8 md:px-20 py-24 z-20 overflow-hidden" 
+      className="z-20" 
       style={{ background: "linear-gradient(to right, #F3C6A8 0%, #FDF8F5 50%, #F5F5F5 100%)" }}
     >
       {/* Background Video */}
@@ -76,6 +77,6 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

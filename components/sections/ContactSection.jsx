@@ -18,6 +18,7 @@ import { CHANNELS, BOOT_MESSAGES } from "../../data/socials";
 import ChannelCard from "../cards/ChannelCard";
 import GridBackground from "../common/GridBackground";
 import useMousePosition from "../../hooks/useMousePosition";
+import SectionWrapper from "../layout/SectionWrapper";
 
 const ICON_MAP = { Github, Linkedin, Twitter, MessageSquare, SlackIcon, Mail };
 
@@ -42,9 +43,10 @@ export default function ContactSection() {
   }, [isInView, bootIndex]);
 
   return (
-    <section 
+    <SectionWrapper 
+      id="contact"
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#FDF8F5] py-24 px-6 md:px-12 flex flex-col items-center justify-center font-['Inter'] relative"
+      className="bg-[#FDF8F5] font-['Inter'] relative"
     >
       <GridBackground type="linear" />
 
@@ -138,6 +140,6 @@ export default function ContactSection() {
       <motion.div className="fixed left-0 w-full h-[2px] bg-[#FF6F61]/5 z-50 pointer-events-none" animate={{ top: ["0%", "100%"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} />
       <div className="mt-12 text-[10px] font-bold text-gray-300 uppercase tracking-widest text-center">&copy; {new Date().getFullYear()} — SYSTEM ARCHITECTURE ARCHIVE — ALL RIGHTS RESERVED</div>
       <div className="fixed inset-0 pointer-events-none opacity-20 z-0" style={{ background: "radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 111, 97, 0.08), transparent 80%)" }} />
-    </section>
+    </SectionWrapper>
   );
 }

@@ -13,6 +13,7 @@ import NeuralProcessor from "../animations/NeuralProcessor";
 import FlowObject from "../animations/FlowObject";
 import SectionHeader from "../common/SectionHeader";
 import GridBackground from "../common/GridBackground";
+import SectionWrapper from "../layout/SectionWrapper";
 
 export default function TechStackSection() {
   const [hoveredOutput, setHoveredOutput] = useState(null);
@@ -22,9 +23,10 @@ export default function TechStackSection() {
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   return (
-    <section 
+    <SectionWrapper 
+      id="skills"
       ref={containerRef}
-      className="w-full min-h-[800px] py-20 px-4 bg-[#FDF8F5] overflow-hidden flex flex-col items-center justify-center font-['Inter']"
+      className="bg-[#FDF8F5] font-['Inter']"
     >
       <SectionHeader 
         accent="Engineering Intelligence"
@@ -153,6 +155,6 @@ export default function TechStackSection() {
           </div>
         ))}
       </motion.div>
-    </section>
+    </SectionWrapper>
   );
 }

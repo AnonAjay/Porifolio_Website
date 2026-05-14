@@ -16,6 +16,7 @@ import EvolutionGraph from "../animations/EvolutionGraph";
 import SectionHeader from "../common/SectionHeader";
 import GridBackground from "../common/GridBackground";
 import TechPill from "../ui/TechPill";
+import SectionWrapper from "../layout/SectionWrapper";
 
 const ICON_MAP = { Binary, FlaskConical, Box, Layers, Target };
 
@@ -31,9 +32,10 @@ export default function ExperienceSection() {
   );
 
   return (
-    <section 
+    <SectionWrapper 
+      id="experience"
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#FDF8F5] py-24 px-6 md:px-12 flex flex-col items-center justify-center font-['Inter']"
+      className="bg-[#FDF8F5] font-['Inter']"
     >
       <div className="max-w-7xl w-full">
         <SectionHeader 
@@ -128,6 +130,6 @@ export default function ExperienceSection() {
         <div className="w-1.5 h-1.5 rounded-full bg-[#FF6F61] animate-pulse" />
         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.4em]">Evolutionary Topology Activated</span>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }
