@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { Github, Linkedin, Twitter, MessageSquare, FileText, ChevronRight, Activity } from "lucide-react";
 
 const ICON_MAP = { Github, Linkedin, Twitter, MessageSquare, FileText };
@@ -49,12 +49,17 @@ const THEME_STYLES = {
 
 export default function HoloCard({ activeNode }) {
   const cardRef = useRef(null);
-  
-  // Parallax physics
+
+  // Physics - Heavier and more luxurious
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), { stiffness: 200, damping: 20 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 200, damping: 20 });
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 150, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 150, damping: 30 });
+
+  // Specular Glare Tracking
+  const glareX = useSpring(useTransform(x, [-0.5, 0.5], [0, 100]), { stiffness: 150, damping: 30 });
+  const glareY = useSpring(useTransform(y, [-0.5, 0.5], [0, 100]), { stiffness: 150, damping: 30 });
+  const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.2) 0%, transparent 60%)`;
 
   function handleMouseMove(e) {
     if (!cardRef.current) return;
@@ -70,7 +75,6 @@ export default function HoloCard({ activeNode }) {
     y.set(0);
   }
 
-  // Safely resolve the active theme mapping
   const currentTheme = THEME_STYLES[activeNode.theme] || THEME_STYLES.github;
 
   return (
@@ -78,97 +82,100 @@ export default function HoloCard({ activeNode }) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ perspective: 1200, rotateX, rotateY }}
-      className="w-full aspect-[4/3] lg:aspect-auto lg:h-[550px] relative rounded-[2.5rem] overflow-hidden"
+      style={{ perspective: 1500, rotateX, rotateY }}
+      className="w-full max-w-[360px] aspect-[5/7] mx-auto relative rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10"
     >
       <AnimatePresence mode="wait">
         <motion.div
           key={activeNode.id}
-          initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+          initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-          className={`absolute inset-0 w-full h-full flex flex-col justify-between p-8 md:p-12 border backdrop-blur-2xl transition-colors duration-500 ${currentTheme.bg} ${currentTheme.border}`}
+          exit={{ opacity: 0, scale: 1.02, filter: "blur(10px)" }}
+          transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+          className={`absolute inset-0 w-full h-full flex flex-col justify-between p-8 border backdrop-blur-3xl transition-colors duration-700 ${currentTheme.bg} ${currentTheme.border}`}
         >
-          {/* Holographic layered gradients */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[2.5rem]">
-            <div className={`absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br ${currentTheme.glow} opacity-60 mix-blend-overlay rotate-12`} />
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[100px] rounded-full" />
+          {/* Base Holographic Gradients */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[2rem]">
+            <div className={`absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br ${currentTheme.glow} opacity-60 mix-blend-screen rotate-12`} />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[100px] rounded-full" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 blur-[100px] rounded-full" />
-            
-            {/* Soft inner glow border */}
-            <div className={`absolute inset-0 rounded-[2.5rem] border-[1.5px] bg-gradient-to-br opacity-30 ${currentTheme.glow} mix-blend-screen pointer-events-none`} />
           </div>
 
           <div className="relative z-10 flex flex-col h-full justify-between">
             {/* Header */}
             <div className="flex justify-between items-start">
               <div>
-                <div className={`text-[10px] uppercase tracking-[0.3em] font-bold mb-2 ${currentTheme.textAccent}`}>
+                <div className={`text-[9px] uppercase tracking-[0.2em] font-bold mb-2 ${currentTheme.textAccent}`}>
                   {activeNode.systemLabel}
                 </div>
-                <h3 className={`text-3xl md:text-4xl font-black tracking-tight ${currentTheme.text}`}>
+                <h3 className={`text-2xl font-black tracking-tight ${currentTheme.text}`}>
                   {activeNode.platform}
                 </h3>
-                <p className={`text-sm md:text-base font-medium mt-1 opacity-70 ${currentTheme.text}`}>
-                  {activeNode.username}
-                </p>
               </div>
-              <div className={`p-4 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ${currentTheme.text} shadow-xl`}>
-                {React.createElement(ICON_MAP[activeNode.logo] || Activity, { size: 36 })}
+              <div className={`p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ${currentTheme.text} shadow-xl`}>
+                {React.createElement(ICON_MAP[activeNode.logo] || Activity, { size: 24 })}
               </div>
             </div>
 
             {/* Narrative Description */}
             <div className="my-6">
-              <p className={`text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-md ${currentTheme.text} opacity-80`}>
+              <p className={`text-sm leading-relaxed ${currentTheme.text} opacity-80 font-light`}>
                 "{activeNode.description}"
               </p>
             </div>
 
             {/* SocialMetadata Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-6 rounded-2xl bg-black/5 border border-white/5 backdrop-blur-sm">
-              {/* Status */}
-              <div>
-                <div className={`text-[9px] uppercase tracking-widest font-bold opacity-50 mb-1 ${currentTheme.text}`}>Status</div>
-                <div className={`text-xs font-bold flex items-center gap-2 ${currentTheme.textAccent}`}>
+            <div className="flex flex-col gap-3 mb-6 p-4 rounded-xl bg-black/10 border border-white/5 backdrop-blur-sm">
+              <div className="flex justify-between items-center">
+                <span className={`text-[9px] uppercase tracking-widest font-bold opacity-50 ${currentTheme.text}`}>Status</span>
+                <span className={`text-[10px] font-bold flex items-center gap-2 ${currentTheme.textAccent}`}>
                   <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${currentTheme.accent}`} />
                   {activeNode.status}
-                </div>
+                </span>
               </div>
-              {/* Active Since */}
-              <div>
-                <div className={`text-[9px] uppercase tracking-widest font-bold opacity-50 mb-1 ${currentTheme.text}`}>Active Since</div>
-                <div className={`text-xs font-bold ${currentTheme.text}`}>{activeNode.activeSince}</div>
+              <div className="flex justify-between items-center">
+                <span className={`text-[9px] uppercase tracking-widest font-bold opacity-50 ${currentTheme.text}`}>Active Since</span>
+                <span className={`text-[10px] font-bold ${currentTheme.text}`}>{activeNode.activeSince}</span>
               </div>
-              {/* Dynamic Metadata */}
               {activeNode.metadata.slice(0, 2).map((meta, i) => (
-                <div key={i}>
-                  <div className={`text-[9px] uppercase tracking-widest font-bold opacity-50 mb-1 ${currentTheme.text}`}>{meta.label}</div>
-                  <div className={`text-xs font-bold ${currentTheme.text}`}>{meta.value}</div>
+                <div key={i} className="flex justify-between items-center">
+                  <span className={`text-[9px] uppercase tracking-widest font-bold opacity-50 ${currentTheme.text}`}>{meta.label}</span>
+                  <span className={`text-[10px] font-bold ${currentTheme.text}`}>{meta.value}</span>
                 </div>
               ))}
             </div>
 
             {/* CTA Button */}
-            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-              <div className={`text-[10px] font-bold uppercase tracking-widest opacity-40 ${currentTheme.text}`}>
-                Identity Node Verified
-              </div>
+            <div className="pt-4 border-t border-white/10">
               <motion.a
                 href={activeNode.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, x: 5 }}
-                whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-3 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors shadow-lg ${currentTheme.accent} text-white hover:opacity-90`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors shadow-lg ${currentTheme.accent} text-white hover:opacity-90`}
               >
-                Access Protocol <ChevronRight size={14} />
+                Access Node
               </motion.a>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Layer 2: Noise Texture */}
+      <div
+        className="absolute inset-0 z-20 mix-blend-overlay pointer-events-none opacity-[0.05]"
+        style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}
+      />
+
+      {/* Layer 3: Specular Glare Hotspot */}
+      <motion.div
+        className="absolute inset-0 z-30 pointer-events-none mix-blend-screen opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        style={{ background: glareBackground }}
+      />
+
+      {/* Layer 5: Edge Fresnel Lighting */}
+      <div className="absolute inset-0 z-40 rounded-[2rem] border-[1px] border-white/20 pointer-events-none mix-blend-overlay" />
     </motion.div>
   );
 }
