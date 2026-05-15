@@ -24,60 +24,69 @@ export default function AboutSection() {
       id="about" 
       ref={sectionRef} 
       className="z-20" 
-      style={{ background: "linear-gradient(to right, #F3C6A8 0%, #FDF8F5 50%, #F5F5F5 100%)" }}
+      style={{ background: "linear-gradient(to right, #f8a873ff 0%, #FDF8F5 60%, #F5F5F5 100%)" }}
     >
-      {/* Background Video */}
-      <div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden pointer-events-none z-0 opacity-80">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover" style={{ filter: "saturate(0.8) brightness(1.1) contrast(0.9)" }}>
-          <source src="/videos/about_me.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to right, transparent 80%, #FDF8F5 100%)" }} />
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to right, rgba(243,198,168,0.3) 0%, transparent 100%)" }} />
-      </div>
-
       <GridBackground type="radial" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div className="relative min-h-[500px] w-full flex items-center justify-center scale-[0.85] lg:scale-100">
-          <div className="absolute w-[450px] h-[450px] bg-[#FF6F61]/5 blur-[100px] rounded-full -z-10" />
-        </div>
+      {/* Grounded, top-anchored editorial container instead of dead-centered */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-[clamp(6rem,12vh,10rem)] pb-[clamp(4rem,8vh,8rem)] min-h-screen flex flex-col">
+        
+        {/* 55% / 45% Fluid Split */}
+        <div className="w-full flex flex-col lg:flex-row gap-[clamp(3rem,6vw,8rem)] items-center lg:items-stretch">
+          
+          {/* VIDEO CONTAINER (55%) */}
+          <div className="relative w-full lg:w-[55%] flex items-center justify-center">
+            <div className="relative w-full aspect-[4/5] max-h-[85vh] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/20 bg-[#FDF8F5]">
+              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "saturate(0.8) brightness(1.1) contrast(0.9)" }}>
+                <source src="/videos/about_me.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to top, rgba(243,198,168,0.4) 0%, transparent 40%)" }} />
+              {/* Backlight orb tied to the video container */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#FF6F61]/20 blur-[100px] rounded-full -z-10" />
+            </div>
+          </div>
 
-        <div className="flex flex-col">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] mb-12 leading-[1.2]"
-          >
-            I build <br />
-            <span className="relative block min-h-[1.4em] overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={PHRASES[phraseIndex]}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="absolute left-0 top-0 text-transparent bg-clip-text bg-gradient-to-r from-[#FF6F61] to-[#FFC1A6] whitespace-nowrap"
-                >
-                  {PHRASES[phraseIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </motion.h2>
+          {/* CONTENT CONTAINER (45%) */}
+          <div className="w-full lg:w-[45%] flex flex-col justify-center max-w-xl lg:max-w-none mx-auto lg:mx-0">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-[clamp(2.5rem,4vw,4.5rem)] font-bold tracking-tight text-[#1A1A1A] mb-[clamp(1.5rem,4vh,3rem)] leading-[1.1]"
+            >
+              I build <br />
+              <span className="relative block min-h-[1.2em] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={PHRASES[phraseIndex]}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute left-0 top-0 text-transparent bg-clip-text bg-gradient-to-r from-[#FF6F61] to-[#FFC1A6] whitespace-nowrap"
+                  >
+                    {PHRASES[phraseIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </motion.h2>
 
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.35 }} className="text-base md:text-lg text-[#1A1A1A]/70 leading-relaxed max-w-xl mb-12 font-light">
-            {ABOUT_TEXT}
-          </motion.p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={isInView ? { opacity: 1, y: 0 } : {}} 
+              transition={{ duration: 0.7, delay: 0.35 }} 
+              className="text-[clamp(1rem,1.25vw,1.125rem)] text-[#1A1A1A]/70 leading-relaxed max-w-lg mb-[clamp(2rem,5vh,3.5rem)] font-light"
+            >
+              {ABOUT_TEXT}
+            </motion.p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {CAPABILITIES.map((cap, i) => (
-              <CapabilityCard key={cap.title} {...cap} index={i} />
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[clamp(0.75rem,2vw,1.5rem)]">
+              {CAPABILITIES.map((cap, i) => (
+                <CapabilityCard key={cap.title} {...cap} index={i} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </SectionWrapper>
   );
