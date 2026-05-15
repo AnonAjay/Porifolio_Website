@@ -37,7 +37,8 @@ export default function AboutSection() {
 
       <GridBackground type="radial" />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="relative min-h-[500px] w-full flex items-center justify-center scale-[0.85] lg:scale-100">
           <div className="absolute w-[450px] h-[450px] bg-[#FF6F61]/5 blur-[100px] rounded-full -z-10" />
         </div>
@@ -76,6 +77,7 @@ export default function AboutSection() {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </SectionWrapper>
   );

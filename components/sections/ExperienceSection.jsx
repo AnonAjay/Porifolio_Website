@@ -37,7 +37,8 @@ export default function ExperienceSection() {
       ref={sectionRef}
       className="bg-[#FDF8F5] font-['Inter']"
     >
-      <div className="max-w-7xl w-full">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
+        <div className="w-full">
         <SectionHeader 
           accent="Capability Progression"
           title="Engineering Evolution Map"
@@ -129,6 +130,7 @@ export default function ExperienceSection() {
       <div className="mt-16 flex items-center gap-4">
         <div className="w-1.5 h-1.5 rounded-full bg-[#FF6F61] animate-pulse" />
         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.4em]">Evolutionary Topology Activated</span>
+        </div>
       </div>
     </SectionWrapper>
   );

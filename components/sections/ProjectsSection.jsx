@@ -35,7 +35,7 @@ export default function ProjectsSection() {
       <GridBackground type="radial" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#FF6F61]/5 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
         <SectionHeader 
           title="Project Roadmap"
           subtitle="A chronological journey through high-impact systems, architectural challenges, and engineering milestones."

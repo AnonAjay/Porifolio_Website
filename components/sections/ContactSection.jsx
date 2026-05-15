@@ -50,7 +50,8 @@ export default function ContactSection() {
     >
       <GridBackground type="linear" />
 
-      <div className="max-w-7xl w-full flex flex-col items-stretch bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl shadow-[#FF6F61]/5 overflow-hidden relative z-10">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
+        <div className="w-full flex flex-col items-stretch bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl shadow-[#FF6F61]/5 overflow-hidden relative z-10">
         {/* HEADER */}
         <div className="border-b border-gray-50 p-8 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-4">
@@ -135,10 +136,12 @@ export default function ContactSection() {
             <span className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em]">Engineering ideas into systems.</span>
           </div>
         </div>
+        </div>
+
+        <div className="mt-12 text-[10px] font-bold text-gray-300 uppercase tracking-widest text-center">&copy; {new Date().getFullYear()} — SYSTEM ARCHITECTURE ARCHIVE — ALL RIGHTS RESERVED</div>
       </div>
 
       <motion.div className="fixed left-0 w-full h-[2px] bg-[#FF6F61]/5 z-50 pointer-events-none" animate={{ top: ["0%", "100%"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} />
-      <div className="mt-12 text-[10px] font-bold text-gray-300 uppercase tracking-widest text-center">&copy; {new Date().getFullYear()} — SYSTEM ARCHITECTURE ARCHIVE — ALL RIGHTS RESERVED</div>
       <div className="fixed inset-0 pointer-events-none opacity-20 z-0" style={{ background: "radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 111, 97, 0.08), transparent 80%)" }} />
     </SectionWrapper>
   );

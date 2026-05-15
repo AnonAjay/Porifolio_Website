@@ -28,6 +28,7 @@ export default function TechStackSection() {
       ref={containerRef}
       className="bg-[#FDF8F5] font-['Inter']"
     >
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col items-center justify-center">
       <SectionHeader 
         accent="Engineering Intelligence"
         title="Technical Processing Pipeline"
@@ -155,6 +156,7 @@ export default function TechStackSection() {
           </div>
         ))}
       </motion.div>
+      </div>
     </SectionWrapper>
   );
 }
