@@ -9,6 +9,7 @@ import SectionWrapper from "../layout/SectionWrapper";
 import SocialSelector from "./contact/SocialSelector";
 import HoloCard from "./contact/HoloCard";
 import useMousePosition from "../../hooks/useMousePosition";
+import GlossySphere from "../animations/GlossySphere";
 
 export default function ContactSection() {
   const [activeId, setActiveId] = useState(SOCIAL_NODES[0].id);
@@ -22,7 +23,7 @@ export default function ContactSection() {
     <SectionWrapper 
       id="contact"
       ref={sectionRef}
-      className="bg-[#FDF8F5] font-['Inter'] relative"
+      className="bg-transparent font-['Inter'] relative"
     >
       <GridBackground type="linear" />
 
@@ -57,8 +58,37 @@ export default function ContactSection() {
           </div>
 
           {/* RIGHT: HoloCard */}
-          <div className="w-full lg:w-2/3 flex flex-col justify-center relative">
-            <HoloCard activeNode={activeNode} />
+          <div className="w-full lg:w-2/3 flex flex-col justify-center relative min-h-[400px]">
+            {/* Sphere 1: Primary Background (Large, partially behind card, soft blur) */}
+            <motion.div
+              animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-[10%] left-[20%] pointer-events-none z-0"
+            >
+              <GlossySphere size={240} color="#FFA885" glowColor="#FFEBE0" shadowColor="#C96847" blur="blur-[16px]" opacity={0.65} />
+            </motion.div>
+            
+            {/* Sphere 2: Upper-Right Support (Medium, subtle blur) */}
+            <motion.div
+              animate={{ y: [0, -15, 0], x: [0, -15, 0] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+              className="absolute top-[-10%] right-[10%] pointer-events-none z-0"
+            >
+              <GlossySphere size={150} color="#FFBFA3" glowColor="#FFF5F0" shadowColor="#D68060" blur="blur-[4px]" opacity={0.8} />
+            </motion.div>
+
+            {/* Sphere 3: Lower-Left Support (Small, sharp focus in foreground) */}
+            <motion.div
+              animate={{ y: [0, 20, 0], x: [0, 15, 0] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-8 left-[-8%] pointer-events-none z-20"
+            >
+              <GlossySphere size={100} color="#FFA885" glowColor="#FFEBE0" shadowColor="#C96847" blur="blur-none" opacity={0.9} />
+            </motion.div>
+
+            <div className="relative z-10 w-full">
+              <HoloCard activeNode={activeNode} />
+            </div>
           </div>
         </div>
 

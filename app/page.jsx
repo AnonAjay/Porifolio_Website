@@ -1,6 +1,6 @@
 "use client";
 
-import { useScroll } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useEffect } from "react";
 import HeroSection from "../components/sections/HeroSection";
 import AboutSection from "../components/sections/AboutSection";
@@ -17,7 +17,17 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative bg-[#121212]">
+    <main className="relative bg-transparent">
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-20%] left-[-20%] w-[140%] h-[140%] bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_60%)]"
+        />
+      </div>
       <HeroSection scrollYProgress={scrollYProgress} />
       <AboutSection />
       <ProjectsSection />

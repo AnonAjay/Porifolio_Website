@@ -31,7 +31,7 @@ export default function ProjectsSection() {
   }
 
   return (
-    <SectionWrapper id="projects" className="bg-[#FDF8F5]">
+    <SectionWrapper id="projects" className="bg-transparent">
       <GridBackground type="radial" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#FF6F61]/5 blur-[150px] rounded-full pointer-events-none" />
 

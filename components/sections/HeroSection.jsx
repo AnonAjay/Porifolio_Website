@@ -108,7 +108,7 @@ export default function HeroSection() {
   }, [activeStep]);
 
   return (
-    <section id="home" className="relative w-full h-screen bg-[#0D0D0D]">
+    <section id="home" className="relative w-full h-screen bg-transparent">
       <div className="absolute top-0 left-0 w-full h-screen overflow-hidden">
         <ScrollyCanvas activeStep={activeStep} />
         <Overlay activeStep={activeStep} />

@@ -23,8 +23,7 @@ export default function AboutSection() {
     <SectionWrapper 
       id="about" 
       ref={sectionRef} 
-      className="z-20" 
-      style={{ background: "linear-gradient(to right, #f8a873ff 0%, #FDF8F5 60%, #F5F5F5 100%)" }}
+      className="z-20 bg-transparent"
     >
       <GridBackground type="radial" />
 
@@ -36,7 +35,7 @@ export default function AboutSection() {
           
           {/* VIDEO CONTAINER (55%) */}
           <div className="relative w-full lg:w-[55%] flex items-center justify-center">
-            <div className="relative w-full aspect-[4/5] max-h-[85vh] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/20 bg-[#FDF8F5]">
+            <div className="relative w-full aspect-[4/5] max-h-[85vh] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/30 bg-white/10 backdrop-blur-md">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "saturate(0.8) brightness(1.1) contrast(0.9)" }}>
                 <source src="/videos/about_me.mp4" type="video/mp4" />
               </video>

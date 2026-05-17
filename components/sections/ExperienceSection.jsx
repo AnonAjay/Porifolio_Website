@@ -35,7 +35,7 @@ export default function ExperienceSection() {
     <SectionWrapper 
       id="experience"
       ref={sectionRef}
-      className="bg-[#FDF8F5] font-['Inter']"
+      className="bg-transparent font-['Inter']"
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col justify-center">
         <div className="w-full">
@@ -47,7 +47,7 @@ export default function ExperienceSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch min-h-[600px]">
           {/* LEFT: GRAPH */}
-          <div className="lg:col-span-7 bg-white rounded-[2.5rem] shadow-xl shadow-[#FF6F61]/5 border border-gray-100 p-8 relative overflow-hidden flex items-center justify-center">
+          <div className="lg:col-span-7 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] shadow-xl shadow-[#FF6F61]/5 border border-white/40 p-8 relative overflow-hidden flex items-center justify-center">
             <GridBackground type="linear" opacity="opacity-[0.03]" />
             <EvolutionGraph 
               activeId={activeId}
@@ -69,7 +69,7 @@ export default function ExperienceSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
-                className="h-full bg-white rounded-[2.5rem] shadow-xl shadow-[#FF6F61]/5 border border-gray-100 p-10 flex flex-col"
+                className="h-full bg-white/40 backdrop-blur-2xl rounded-[2.5rem] shadow-xl shadow-[#FF6F61]/5 border border-white/40 p-10 flex flex-col"
               >
                 <div className="mb-8">
                   <div className="flex items-center gap-3 mb-4">

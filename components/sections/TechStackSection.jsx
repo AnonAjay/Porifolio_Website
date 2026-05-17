@@ -26,7 +26,7 @@ export default function TechStackSection() {
     <SectionWrapper 
       id="skills"
       ref={containerRef}
-      className="bg-[#FDF8F5] font-['Inter']"
+      className="bg-transparent font-['Inter']"
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-24 min-h-screen flex flex-col items-center justify-center">
       <SectionHeader 
@@ -36,7 +36,7 @@ export default function TechStackSection() {
         align="center"
       />
 
-      <div className="relative w-full max-w-6xl aspect-[16/9] bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+      <div className="relative w-full max-w-6xl aspect-[16/9] bg-white/40 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/40 overflow-hidden">
         <GridBackground type="dots" opacity="opacity-[0.03]" />
 
         <svg viewBox="0 0 1000 600" className="w-full h-full relative z-10">
