@@ -29,6 +29,7 @@ export default function ScrollyCanvas({ activeStep }) {
   // Update the target frame whenever the step changes
   useEffect(() => {
     targetFrame.set(keyframes[activeStep] || 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep, targetFrame]);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function ScrollyCanvas({ activeStep }) {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const drawCanvas = (index) => {

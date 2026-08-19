@@ -5,15 +5,18 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext({
   theme: "light",
   toggleTheme: () => {},
+  mounted: false,
 });
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
     document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -24,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );
