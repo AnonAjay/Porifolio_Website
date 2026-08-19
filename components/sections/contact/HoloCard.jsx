@@ -124,7 +124,7 @@ export default function HoloCard({ activeNode }) {
                   {activeNode.platform}
                 </h3>
                 <p className={`text-[11px] mt-3 leading-relaxed ${currentTheme.text} opacity-70 font-medium max-w-[200px]`}>
-                  "{activeNode.description}"
+                  &quot;{activeNode.description}&quot;
                 </p>
               </div>
 

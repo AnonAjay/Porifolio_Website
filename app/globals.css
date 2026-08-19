@@ -12,16 +12,8 @@ html, body {
 }
 
 body {
-  background: linear-gradient(
-    to bottom,
-    #C0876E 0%,
-    #C0876E 25%,
-    #EAA286 45%,
-    #F4E3D3 65%,
-    #FDF3ED 85%,
-    #FFFFFF 100%
-  );
-  color: var(--foreground);
+  background-color: #fafafa;
+  color: #171717;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
