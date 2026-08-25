@@ -1,5 +1,13 @@
 node_modules
 .next/
 
+# 3-Layer Agent Architecture
+.tmp/
+.env
+.env.local
+.env.*.local
+credentials.json
+token.json
+
 public/videos/
 public/images/
