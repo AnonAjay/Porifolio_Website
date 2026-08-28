@@ -8,10 +8,13 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "Inter", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        canvasBg: "#FDF8F5"
+        canvasBg: "#FDF8F5",
       },
     },
   },
